@@ -77,6 +77,10 @@ public:
         y_ /= dev;
         return *this;
     }
+    double distance(const point& second) const
+    {
+        return sqrt(pow(x_ - second.x_, 2) + pow(y_ - second.y_, 2));
+    }
     double getX() const
     {
         return x_;
@@ -146,7 +150,10 @@ public:
         , numberOfClusters_(numberOfClusters)
         , previous_(initU())
     {
-
+        for (auto i : calculePrototypes(previous_))
+        {
+            i.print();
+        }
     }
 
 private:
@@ -161,14 +168,15 @@ private:
 
             for (size_t j(0); j < numberOfClusters_; ++j)
             {
-                if ((j & numberOfClusters_) == 0 and j != 0 and i != 0)
-                {
-                    ++counter;
-                }
-                if (j == (((i - counter) % numberOfClusters_)))
+                if (j == counter)
                 {
                     temp.at(i).at(j) = 1;
                 }
+            }
+            ++counter;
+            if (counter >= numberOfClusters_)
+            {
+                counter = 0;
             }
         }
         return temp;
@@ -223,10 +231,11 @@ int main()
     fs::path filePathDCN = "C:\\Users\\Studia\\source\\repos\\Data clustering\\Data clustering\\DCN-Data4.txt";
     const data DC(dRead(filePathDC));
     const data DCN(dRead(filePathDCN));
-    crispClustering dataSetDC(DC.get(), 3, 13);
+    crispClustering dataSetDC(DC.get(), 5, 13);
     crispClustering dataSetDCN(DCN.get(), 3, 13);
 
     matplot::figure();
+
     matplot::hold(matplot::on);
     matplot::scatter(DC.getX(), DC.getY());
     //matplot::scatter(DCN.getX(), DCN.getY());
