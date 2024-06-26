@@ -184,9 +184,9 @@ private:
             for (size_t j(0); j < size(); ++j)
             {
                 tempValue += currentMatrixU.at(j).at(i);
-                tempPoint += tempPoint;
+                tempPoint += get().at(j)*currentMatrixU.at(j).at(i);
             }
-            temp.at(i) = tempPoint/tempValue
+            temp.at(i) = tempPoint / tempValue;
         }
         return temp;
     }
