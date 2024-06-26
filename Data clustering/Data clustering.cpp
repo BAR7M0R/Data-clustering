@@ -101,14 +101,21 @@ public:
 
     crispClustering(const std::vector<point>& rowData, const size_t &numberOfClusters)
         : data(rowData)
+        , first_(initU())
         , numberOfClusters_(numberOfClusters)
     {
-        first_.resize(size(), std::vector<double>(numberOfClusters_, 0));
+    }
+
+private:
+    matrixU initU()
+    {
+        matrixU temp;
+        temp.resize(size(), std::vector<double>(numberOfClusters_, 0));
 
         size_t counter(0);
-        for (size_t i(0); i < first_.size(); ++i)
+        for (size_t i(0); i < temp.size(); ++i)
         {
-            
+
             for (size_t j(0); j < numberOfClusters_; ++j)
             {
                 if ((j & numberOfClusters_) == 0 and j != 0 and i != 0)
@@ -117,19 +124,18 @@ public:
                 }
                 if (j == (((i - counter) % numberOfClusters_)))
                 {
-                    first_.at(i).at(j) = 1;
+                    temp.at(i).at(j) = 1;
                 }
             }
         }
+        return temp;
     }
 
-private:
-    void calculatePrototype(matrixU &matrixU, matrixP &data);
     const size_t numberOfClusters_;
     matrixU first_;
     matrixU second_;
 };
-data dRead(fs::path& path)
+static data dRead(fs::path& path)
 {
     std::fstream inputFile(path);
     std::vector<point> formatedData;
