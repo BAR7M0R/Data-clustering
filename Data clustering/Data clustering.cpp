@@ -34,10 +34,26 @@ public:
         }
         return *this;
     }
-    point &operator*(const double &mul)
+    point operator*(const double &mul)
     {
         x_ *= mul;
         y_ *= mul;
+        return *this;
+    }
+    point &operator+(const point& p)
+    {
+        if (this != &p) {
+            x_ += p.x_;
+            y_ += p.y_;
+        }
+        return *this;
+    }
+    point& operator-(const point& p)
+    {
+        if (this != &p) {
+            x_ -= p.x_;
+            y_ -= p.y_;
+        }
         return *this;
     }
     double getX() const
@@ -149,7 +165,7 @@ private:
         temp.resize(numberOfClusters_, point(0,0));
         for (size_t i(0); i < temp.size(); ++i)
         {
-
+            
         }
         return temp;
     }
