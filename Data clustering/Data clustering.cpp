@@ -19,19 +19,25 @@ public:
         : x_(0)
         , y_(0)
     {}
-    point(const double& x, const double& y)
+    point(const double &x, const double &y)
         : x_(x)
         , y_(y)
     {}
-    point(const point& p)
+    point(const point &p)
         : x_(p.x_)
         , y_(p.y_)
     {}
-    point& operator=(const point& p) {
+    point &operator=(const point &p) {
         if (this != &p) {
             x_ = p.x_;
             y_ = p.y_;
         }
+        return *this;
+    }
+    point &operator*(const double &mul)
+    {
+        x_ *= mul;
+        y_ *= mul;
         return *this;
     }
     double getX() const
@@ -70,7 +76,7 @@ public:
         std::transform(data_.begin(), data_.end(), std::back_inserter(Y), [](point data) {return data.getY(); });
         return Y;
     }
-   std::vector<point> get() const
+    std::vector<point> get() const
     {
         return data_;
     }
@@ -137,9 +143,15 @@ private:
         }
         return temp;
     }
-    matrixP calculePrototypes(const matrixU& currentMatrixU, const matrixP& rowData)
+    matrixP calculePrototypes(const matrixU& currentMatrixU)
     {
+        matrixP temp;
+        temp.resize(numberOfClusters_, point(0,0));
+        for (size_t i(0); i < temp.size(); ++i)
+        {
 
+        }
+        return temp;
     }
     const size_t numberOfClusters_;
     matrixU previous_;
