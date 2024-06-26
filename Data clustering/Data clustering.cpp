@@ -119,12 +119,6 @@ public:
                 }
             }
         }
-        for (auto e : matrixU_)
-        {
-            for (auto m : e)
-                std::cout << m;
-            std::cout << std::endl;
-        }
     }
     double distance()
 
