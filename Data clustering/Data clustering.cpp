@@ -96,14 +96,15 @@ private:
 class crispClustering : public data
 {
     using matrixU = std::vector<std::vector<double>>;
-    using matrixP = std::vector<point>;
+    using matrixPoints = std::vector<point>;
 public:
 
     crispClustering(const std::vector<point>& rowData, const size_t &numberOfClusters)
         : data(rowData)
-        , first_(initU())
         , numberOfClusters_(numberOfClusters)
+        , first_(initU())
     {
+
     }
 
 private:
@@ -164,7 +165,7 @@ int main()
     fs::path filePathDCN = "C:\\Users\\Studia\\source\\repos\\Data clustering\\Data clustering\\DCN-Data4.txt";
     const data DC(dRead(filePathDC));
     const data DCN(dRead(filePathDCN));
-    crispClustering(dRead(filePathDC).get(), 3);
+    crispClustering(DC.get(), 3);
 
     matplot::figure();
     matplot::hold(matplot::on);
