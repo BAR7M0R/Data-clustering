@@ -58,21 +58,25 @@ public:
         :data_(data)
     {
     }
-    virtual std::vector<double> getX() const
+    std::vector<double> getX() const
     {
         std::vector<double> X;
         std::transform(data_.begin(), data_.end(), std::back_inserter(X), [](point data) {return data.getX(); });
         return X;
     }
-    virtual std::vector<double> getY() const
+    std::vector<double> getY() const
     {
         std::vector<double> Y;
         std::transform(data_.begin(), data_.end(), std::back_inserter(Y), [](point data) {return data.getY(); });
         return Y;
     }
-    std::vector<point> getData() const
+    std::vector<point> get() const
     {
         return data_;
+    }
+    size_t size()
+    {
+        return(data_.size());
     }
     void printData() const
     {
@@ -81,17 +85,57 @@ public:
             p.print();
         }
     }
-    virtual ~data()
-    {}
 protected:
-    void setData(const std::vector<point>& data)
+    void set(const std::vector<point>& data)
     {
         data_ = data;
     }
 private:
     std::vector<point> data_;
 };
+class crispClustering : public data
+{
+public:
 
+    crispClustering(const std::vector<point>& rowData, const size_t &numberOfClusters)
+        : data(rowData)
+        , numberOfClusters_(numberOfClusters)
+    {
+        matrixU_.resize(size(), std::vector<double>(numberOfClusters_, 0));
+
+        size_t counter(0);
+        for (size_t i(0); i < matrixU_.size(); ++i)
+        {
+            
+            for (size_t j(0); j < numberOfClusters_; ++j)
+            {
+                if ((j & numberOfClusters_) == 0 and j != 0 and i != 0)
+                {
+                    ++counter;
+                }
+                if (j == (((i - counter) % numberOfClusters_)))
+                {
+                    matrixU_.at(i).at(j) = 1;
+                }
+            }
+        }
+        for (auto e : matrixU_)
+        {
+            for (auto m : e)
+                std::cout << m;
+            std::cout << std::endl;
+        }
+    }
+    double distance()
+
+    {
+
+    }
+
+private:
+    const size_t numberOfClusters_;
+    std::vector<std::vector<double>> matrixU_;
+};
 static data dRead(fs::path& path)
 {
     std::fstream inputFile(path);
@@ -121,7 +165,7 @@ int main()
     fs::path filePathDCN = "C:\\Users\\Studia\\source\\repos\\Data clustering\\Data clustering\\DCN-Data4.txt";
     const data DC(dRead(filePathDC));
     const data DCN(dRead(filePathDCN));
-
+    crispClustering(dRead(filePathDC).get(), 3);
 
     matplot::figure();
     matplot::hold(matplot::on);
