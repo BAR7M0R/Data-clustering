@@ -40,11 +40,22 @@ public:
         y_ *= mul;
         return *this;
     }
-    point &operator+(const point& p)
+    point &operator+=(const point& p)
     {
-        if (this != &p) {
+        if (this != &p)
+        {
             x_ += p.x_;
             y_ += p.y_;
+        }
+        return *this;
+    }
+    point operator+(const point& p)
+    {
+        if (this != &p) 
+        {
+            point temp(*this);
+            temp.x_ += p.x_;
+            temp.y_ += p.y_;
         }
         return *this;
     }
@@ -54,6 +65,16 @@ public:
             x_ -= p.x_;
             y_ -= p.y_;
         }
+        return *this;
+    }
+    point& operator/(const double& dev)
+    {
+        if (dev == 0)
+        {
+            throw std::invalid_argument("0 devision");
+        }
+        x_ /= dev;
+        y_ /= dev;
         return *this;
     }
     double getX() const
@@ -92,20 +113,13 @@ public:
         std::transform(data_.begin(), data_.end(), std::back_inserter(Y), [](point data) {return data.getY(); });
         return Y;
     }
-    std::vector<point> get() const
+    std::vector<point>get() const
     {
         return data_;
     }
     size_t size()
     {
         return(data_.size());
-    }
-    void printData() const
-    {
-        for (auto p : data_)
-        {
-            p.print();
-        }
     }
 protected:
     void set(const std::vector<point>& data)
@@ -165,7 +179,14 @@ private:
         temp.resize(numberOfClusters_, point(0,0));
         for (size_t i(0); i < temp.size(); ++i)
         {
-            
+            point tempPoint(0,0);
+            double tempValue(0);
+            for (size_t j(0); j < size(); ++j)
+            {
+                tempValue += currentMatrixU.at(j).at(i);
+                tempPoint += tempPoint;
+            }
+            temp.at(i) = tempPoint/tempValue
         }
         return temp;
     }
