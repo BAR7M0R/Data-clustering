@@ -70,7 +70,7 @@ public:
         std::transform(data_.begin(), data_.end(), std::back_inserter(Y), [](point data) {return data.getY(); });
         return Y;
     }
-    std::vector<point> get() const
+   std::vector<point> get() const
     {
         return data_;
     }
@@ -93,16 +93,22 @@ protected:
 private:
     std::vector<point> data_;
 };
+
 class crispClustering : public data
 {
     using matrixU = std::vector<std::vector<double>>;
-    using matrixPoints = std::vector<point>;
+    using matrixP = std::vector<point>;
 public:
-
-    crispClustering(const std::vector<point>& rowData, const size_t &numberOfClusters)
+    /// <summary>
+    /// constructor to calculate crisp clustering it is doing all work for you...
+    /// </summary>
+    /// <param name="rowData">set of points</param>
+    /// <param name="numberOfClusters">number of clusters</param>
+    /// <param name="calculationDepth">max number of repetition of gruping</param>
+    crispClustering(const std::vector<point>& rowData, const size_t &numberOfClusters, const size_t &calculationDepth)
         : data(rowData)
         , numberOfClusters_(numberOfClusters)
-        , first_(initU())
+        , previous_(initU())
     {
 
     }
@@ -131,10 +137,13 @@ private:
         }
         return temp;
     }
+    matrixP calculePrototypes(const matrixU& currentMatrixU, const matrixP& rowData)
+    {
 
+    }
     const size_t numberOfClusters_;
-    matrixU first_;
-    matrixU second_;
+    matrixU previous_;
+    matrixU next_;
 };
 static data dRead(fs::path& path)
 {
@@ -165,7 +174,8 @@ int main()
     fs::path filePathDCN = "C:\\Users\\Studia\\source\\repos\\Data clustering\\Data clustering\\DCN-Data4.txt";
     const data DC(dRead(filePathDC));
     const data DCN(dRead(filePathDCN));
-    crispClustering(DC.get(), 3);
+    crispClustering dataSetDC(DC.get(), 3, 13);
+    crispClustering dataSetDCN(DCN.get(), 3, 13);
 
     matplot::figure();
     matplot::hold(matplot::on);
