@@ -23,7 +23,12 @@ add_executable(my_app main.cpp
         src/CrispClustering.cpp
         src/CrispClustering.hpp
         src/FuzzyClustering.cpp
-        src/FuzzyClustering.hpp)
+        src/FuzzyClustering.hpp
+        tests/Point_test.cpp
+        tests/Data_test.cpp
+        tests/FuzzyClustering_test.cpp
+        tests/CrispClustering_test.cpp
+)
 
 find_package(Matplot++ CONFIG REQUIRED)
 target_link_libraries(my_app PRIVATE Matplot++::cimg  Matplot++::matplot)
