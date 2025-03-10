@@ -1,4 +1,4 @@
-// Data clustering.cpp : This file contains the 'main' function. Program execution begins and ends there.
+// main.cpp : This file contains the 'main' function. Program execution begins and ends there.
 //
 
 #include <iostream>
@@ -380,11 +380,20 @@ static data dRead(fs::path& path)
     }
     return data(formatedData);
 }
-void ploting(data frist, std::vector<data> second)
+void ploting(data frist, std::vector<data> second, std::string& plotTitle)
 {
+    static uint8_t numberOfPlots = 0;
+    numberOfPlots++;
+    static uint8_t plotsInRow=1;
+    static uint8_t plotsInCol = 1;
+    if (numberOfPlots >= plotsInRow * plotsInCol)
+    {
+
+    }
     matplot::figure();
     matplot::scatter(frist.getX(), frist.getY());
     matplot::figure();
+    matplot::subplot()
     matplot::hold(matplot::on);
     for (size_t clusterIndex(0); clusterIndex < 2; ++clusterIndex)
     {
@@ -393,14 +402,36 @@ void ploting(data frist, std::vector<data> second)
     }
     matplot::hold(matplot::off);
 }
+template <typename T>
+concept Number = std::integral<T>;
+
+template<Number T1, Number T2>
+std::pair<T1, T1> sizer(std::pair<T1, T1> subplotSize, const T2 plotNumber)
+{
+    if (plotNumber > subplotSize.first * subplotSize.second)
+    {
+        if (plotNumber%subplotSize.first == 0)
+        {
+            ++subplotSize.first;
+        }
+        if (plotNumber-subplotSize.first%subplotSize.second == 0) {
+            ++subplotSize.second;
+        }
+        return sizer(subplotSize, plotNumber);
+    }
+    else
+    {
+        return subplotSize;
+    }
+}
 int main()
 {
-    fs::path filePathDC = "C:\\Users\\Studia\\source\\repos\\Data clustering\\Data clustering\\DC-Data4.txt";
-    fs::path filePathDCN = "C:\\Users\\Studia\\source\\repos\\Data clustering\\Data clustering\\DCN-Data4.txt";
-    fs::path testPath = "C:\\Users\\Studia\\source\\repos\\Data clustering\\Data clustering\\test.txt";
+    fs::path filePathDC = "..\\src\\DC-Data4.txt";
+    fs::path filePathDCN = "..\\src\\DCN-Data4.txt";
+    //fs::path testPath = "..\\src\\test.txt";
     const data DC(dRead(filePathDC));
     const data DCN(dRead(filePathDCN));
-    const data testD(dRead(testPath));
+    //const data testD(dRead(testPath));
 
     crispClustering dataSetDCCrisp(DC.get(), 2, 2);
     crispClustering dataSetDCNCrisp(DCN.get(), 2, 5);
@@ -412,4 +443,5 @@ int main()
     ploting(DC, dataSetDCFuzzy.getClusters());
     ploting(DCN, dataSetDCNFuzzy.getClusters());
     matplot::show();
+    std::cout << "halo grarzynka lecimy z tematem" << "\n";
 }
