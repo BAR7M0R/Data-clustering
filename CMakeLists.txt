@@ -14,21 +14,10 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 add_subdirectory(src)
 
 set(CMAKE_PREFIX_PATH "C:/Users/Dell/.vcpkg-clion/vcpkg/installed/x64-mingw-dynamic")
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
 
-add_executable(my_app main.cpp
-        src/point.cpp
-        src/point.hpp
-        src/data.cpp
-        src/data.hpp
-        src/CrispClustering.cpp
-        src/CrispClustering.hpp
-        src/FuzzyClustering.cpp
-        src/FuzzyClustering.hpp
-        tests/Point_test.cpp
-        tests/Data_test.cpp
-        tests/FuzzyClustering_test.cpp
-        tests/CrispClustering_test.cpp
-)
+add_executable(my_app main.cpp)
+target_link_libraries(my_app PRIVATE Point Data CrispClustering FuzzyClustering)
 
 find_package(Matplot++ CONFIG REQUIRED)
 target_link_libraries(my_app PRIVATE Matplot++::cimg  Matplot++::matplot)
