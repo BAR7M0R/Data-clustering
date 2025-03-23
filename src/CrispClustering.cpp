@@ -57,7 +57,7 @@ std::vector<Data> &CrispClustering::getClusters()
 {
     return clusters_;
 }
-matrixU CrispClustering::initU()
+matrixU CrispClustering::initU() const
 {
     matrixU temp;
     temp.resize(size(), std::vector<double>(numberOfClusters_, 0));
@@ -81,7 +81,7 @@ matrixU CrispClustering::initU()
     }
     return temp;
 }
-matrixP CrispClustering::calculatePrototypes(const matrixU& currentMatrixU)
+matrixP CrispClustering::calculatePrototypes(const matrixU& currentMatrixU) const
 {
     matrixP temp;
     temp.resize(numberOfClusters_, Point(0,0));

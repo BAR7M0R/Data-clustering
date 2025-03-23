@@ -5,68 +5,39 @@
 #include "Point.hpp"
 #include "iostream"
 #include <cmath>
-
-Point::Point()
-    : x_(0)
-    , y_(0)
-{}
-Point::Point(const double &x, const double &y)
+Point::Point(const double x, const double y)
     : x_(x)
     , y_(y)
 {}
-Point& Point::operator=(const Point &p) {
-    if (this != &p) {
-        x_ = p.x_;
-        y_ = p.y_;
-    }
-    return *this;
-}
-Point Point::operator*(const double &mul)
+Point Point::operator*(const double mul) const
 {
-    x_ *= mul;
-    y_ *= mul;
-    return *this;
+    return {x_ * mul,y_ * mul};
 }
 Point& Point::operator+=(const Point& p)
 {
     if (this != &p)
     {
-        x_ += p.x_;
-        y_ += p.y_;
+        x_ += p.getX();
+        y_ += p.getY();
     }
     return *this;
 }
-Point Point::operator+(const Point& p)
+Point Point::operator+(const Point& p) const
 {
-    if (this != &p)
-    {
-        Point temp(*this);
-        temp.x_ += p.x_;
-        temp.y_ += p.y_;
-    }
-    return *this;
+    return {x_ + p.getX(), y_ + p.getY()};
 }
-Point& Point::operator-(const Point& p)
+Point Point::operator-(const Point& p) const
 {
-    if (this != &p) {
-        x_ -= p.x_;
-        y_ -= p.y_;
-    }
-    return *this;
+    return {x_ - p.getX(), y_ - p.getY()};
 }
-Point& Point::operator/(const double& dev)
+Point Point::operator/(const double dev) const
 {
-    if (dev == 0)
-    {
-        throw std::invalid_argument("0 division");
-    }
-    x_ /= dev;
-    y_ /= dev;
-    return *this;
+    (0 == dev) ? throw std::invalid_argument("0 division") : 0;
+    return {x_ / dev, y_ / dev};
 }
-double Point::distance(const Point& second) const
+double Point::distance(const Point& p) const
 {
-    return sqrt(pow(x_ - second.x_, 2) + pow(y_ - second.y_, 2));
+    return sqrt(pow(x_ - p.getX(), 2) + pow(y_ - p.getY(), 2));
 }
 double Point::getX() const
 {

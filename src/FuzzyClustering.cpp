@@ -11,11 +11,11 @@ using matrixU = std::vector<std::vector<double>>;
 using matrixP = std::vector<Point>;
 using cluster = std::vector<Point>;
 
-FuzzyClustering::FuzzyClustering(const std::vector<Point> &rowData, const size_t &numberOfClusters, const double &fuzzyfyingFactor, const size_t &calculationDepth)
+FuzzyClustering::FuzzyClustering(const std::vector<Point> &rowData, const size_t &numberOfClusters, const double &fuzzyFactor, const size_t &calculationDepth)
     : Data(rowData)
     , numberOfClusters_(numberOfClusters)
     , calculationDepth_(calculationDepth)
-    , fuzzyfyingFactor_(fuzzyfyingFactor)
+    , fuzzyFactor_(fuzzyFactor)
     , previous_(initU())
 {
     for (size_t depthIndex(0); depthIndex < calculationDepth_; ++depthIndex)
@@ -29,12 +29,12 @@ FuzzyClustering::FuzzyClustering(const std::vector<Point> &rowData, const size_t
             for (size_t assignedClusterIndex(0); assignedClusterIndex < numberOfClusters_; ++assignedClusterIndex)
             {
                 double assignedClusterDistance = get().at(pointIndex).distance(currentPrototypes.at(assignedClusterIndex));
-                assignedClusterDistance = pow(assignedClusterDistance, (-2.) / (fuzzyfyingFactor_ - 1));
+                assignedClusterDistance = pow(assignedClusterDistance, (-2.) / (fuzzyFactor_ - 1));
                 double totalDistances = 0;
                 for (size_t clusterIndex(0); clusterIndex < numberOfClusters_; ++clusterIndex)
                 {
                     double tempDistance = get().at(pointIndex).distance(currentPrototypes.at(clusterIndex));
-                    tempDistance = pow(tempDistance, (-2.) / (fuzzyfyingFactor_ - 1));
+                    tempDistance = pow(tempDistance, (-2.) / (fuzzyFactor_ - 1));
                     totalDistances += tempDistance;
                 }
                 next_.at(pointIndex).at(assignedClusterIndex) = assignedClusterDistance / totalDistances;

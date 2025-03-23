@@ -2,8 +2,8 @@
 // Created by Dell on 10/03/2025.
 //
 
-#ifndef CRISP-CLUSTERING_HPP
-#define CRISP-CLUSTERING_HPP
+#ifndef CRISP_CLUSTERING_HPP
+#define CRISP_CLUSTERING_HPP
 
 #include "Data.hpp"
 #include "Point.hpp"
@@ -25,8 +25,8 @@ public:
     CrispClustering(const std::vector<Point>& rowData, const size_t& numberOfClusters, const size_t& calculationDepth);
     std::vector<Data> &getClusters();
 private:
-    matrixU initU();
-    matrixP calculatePrototypes(const matrixU& currentMatrixU);
+    [[nodiscard]] matrixU initU() const;
+    [[nodiscard]] matrixP calculatePrototypes(const matrixU& currentMatrixU) const;
     const size_t numberOfClusters_;
     const size_t calculationDepth_;
     matrixU previous_;
@@ -34,4 +34,4 @@ private:
     std::vector<Data> clusters_;
 };
 
-#endif //CRISP-CLUSTERING_HPP
+#endif //CRISP_CLUSTERING_HPP

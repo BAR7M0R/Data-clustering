@@ -15,7 +15,7 @@ class FuzzyClustering : public Data
     using matrixP = std::vector<Point>;
     using cluster = std::vector<Point>;
 public:
-    FuzzyClustering(const std::vector<Point> &rowData, const size_t &numberOfClusters, const double &fuzzyfyingFactor, const size_t &calculationDepth);
+    FuzzyClustering(const std::vector<Point> &rowData, const size_t &numberOfClusters, const double &fuzzyFactor, const size_t &calculationDepth);
     std::vector<Data>& getClusters();
 
 private:
@@ -25,7 +25,7 @@ private:
 
     const size_t numberOfClusters_;
     const size_t calculationDepth_;
-    const double fuzzyfyingFactor_;
+    const double fuzzyFactor_;
     matrixU previous_;
     matrixU next_;
     std::vector<Data> clusters_;

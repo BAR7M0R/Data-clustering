@@ -6,11 +6,13 @@
 
 #include <vector>
 #include <algorithm>
+#include <ranges>
 #include "Point.hpp"
 
 Data::Data(const std::vector<Point>& rangeOfData)
 : data_(rangeOfData)
 {}
+
 std::vector<double> Data::getX() const
 {
     std::vector<double> X;
@@ -30,8 +32,4 @@ std::vector<Point> Data::get() const
 size_t Data::size() const
 {
     return(data_.size());
-}
-void Data::set(const std::vector<Point>& data)
-{
-    data_ = data;
 }
