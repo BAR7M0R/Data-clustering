@@ -9,7 +9,7 @@
 
 void Ploting(Data first, std::vector<Data> second, const char* plotTitle)
 {
-    static uint8_t numberOfPlots = 0;
+    /*static uint8_t numberOfPlots = 0;
     numberOfPlots++;
     static uint8_t plotsInRow=1;
     static uint8_t plotsInCol = 1;
@@ -27,25 +27,24 @@ void Ploting(Data first, std::vector<Data> second, const char* plotTitle)
         Data dataToPrint = second.at(clusterIndex);
         matplot::scatter(dataToPrint.getX(), dataToPrint.getY());
     }
-    matplot::hold(matplot::off);
+    matplot::hold(matplot::off);*/
 }
 
-template<typename T1>
-std::pair<T1, T1> sizer(std::pair<T1, T1> subplotSize, const std::size_t plotNumber)
+std::pair<std::uint8_t, std::uint8_t> Sizer(std::pair<std::uint8_t, std::uint8_t> subplotSize, const std::size_t plotNumber)
 {
+    if (plotNumber > std::numeric_limits<std::uint16_t>::max()) {
+        throw std::out_of_range("plotNumber is out of range");
+    }
     if (plotNumber > subplotSize.first * subplotSize.second)
     {
-        if (plotNumber%subplotSize.first == 0)
-        {
+        if (0 > static_cast<std::int16_t>(subplotSize.first - plotNumber) and 0 == subplotSize.first - subplotSize.second) {
             ++subplotSize.first;
+            return Sizer(subplotSize, plotNumber);
         }
-        if (plotNumber-subplotSize.first%subplotSize.second == 0) {
+        if (plotNumber >= subplotSize.first * subplotSize.second) {
             ++subplotSize.second;
+            return Sizer(subplotSize, plotNumber);
         }
-        return sizer(subplotSize, plotNumber);
     }
-    else
-    {
-        return subplotSize;
-    }
+    return subplotSize;
 }

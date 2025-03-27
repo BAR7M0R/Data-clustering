@@ -11,6 +11,7 @@ public:
     Point() = default;
     Point(double x, double y);
     Point& operator+=(const Point& p);
+    bool operator==(const Point& p) const;
     [[nodiscard("point::operator+")]] Point operator+(const Point& p) const;
     [[nodiscard("point::operator-")]] Point operator-(const Point& p) const;
     [[nodiscard("point::operator*")]] Point operator*(double mul) const;
@@ -20,8 +21,8 @@ public:
     [[nodiscard("point::getY")]] double getY() const;
     void print() const;
 private:
-    double x_;
-    double y_;
+    double x_ = 0.0;
+    double y_ = 0.0;
 };
 
 #endif //POINT_HPP

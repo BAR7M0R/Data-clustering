@@ -8,8 +8,6 @@
 #include "Data.hpp"
 #include <filesystem>
 
-
-
 Data FileParser(const std::filesystem::path& file);
 
 #endif //FILES_TOOLS_HPP

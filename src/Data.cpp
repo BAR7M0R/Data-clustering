@@ -33,3 +33,14 @@ size_t Data::size() const
 {
     return(data_.size());
 }
+bool Data::operator==(const Data& other) const {
+    if (other.size() != size()) {
+        throw std::runtime_error("Data::operator==: Size mismatch");
+    }
+    bool result = true;
+    for (size_t i = 0; i < size(); ++i) {
+        result = data_[i] == other.get()[i];
+        if (!result) break;
+    }
+    return result;
+}

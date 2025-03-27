@@ -22,6 +22,10 @@ Point& Point::operator+=(const Point& p)
     }
     return *this;
 }
+bool Point::operator==(const Point &p) const {
+    return x_ == p.x_ and y_ == p.y_;
+}
+
 Point Point::operator+(const Point& p) const
 {
     return {x_ + p.getX(), y_ + p.getY()};

@@ -28,7 +28,7 @@ CrispClustering::CrispClustering(const std::vector<Point>& rowData, const size_t
             {
                 distances.push_back(currentPrototypes.at(vIndex).distance(get().at(pIndex)));
             }
-            size_t selectedCluster = std::ranges::distance(
+            const size_t selectedCluster = std::ranges::distance(
                 distances.begin(),
                 std::ranges::min_element(distances));
             next_.at(pIndex).at(selectedCluster) = 1;

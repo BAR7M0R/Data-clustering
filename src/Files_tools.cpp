@@ -9,7 +9,7 @@
 
 Data FileParser(const std::filesystem::path& file)
 {
-    std::fstream inputFile(file);
+    std::ifstream inputFile(file);
     std::vector<Point> formatedData;
     std::string line;
 

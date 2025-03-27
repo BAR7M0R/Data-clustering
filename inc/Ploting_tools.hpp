@@ -6,12 +6,13 @@
 #define PLOTING_TOOLS_HPP
 
 #include <compare>
+#include <cstdint>
 
 #include "Data.hpp"
 #include <utility>
 
 void Ploting(Data first, std::vector<Data> second, const char* plotTitle);
 
-template<typename T1>
-std::pair<T1, T1> Sizer(std::pair<T1, T1> subplotSize, const std::size_t plotNumber);
+std::pair<std::uint8_t, std::uint8_t> Sizer(std::pair<std::uint8_t, std::uint8_t> subplotSize, std::size_t plotNumber);
+
 #endif //PLOTING_TOOLS_HPP
