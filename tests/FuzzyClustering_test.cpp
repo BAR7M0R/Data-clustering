@@ -22,4 +22,5 @@ TEST_CASE("FuzzyClustering full algorithm", "[FuzzyClustering]") {
     const Data expected_cluster1({Point(10,10), Point(10,11), Point(11,10), Point(11,11)});
     auto req = cluster0 == expected_cluster0 and cluster1 == expected_cluster1;
     REQUIRE(req);
+
 }
