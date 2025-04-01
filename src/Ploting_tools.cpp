@@ -7,27 +7,34 @@
 #include <utility>
 
 
-void Ploting(Data first, std::vector<Data> second, const char* plotTitle)
+void Ploting(const std::vector<Data> &data, const std::string &plotTitle)
 {
-    /*static uint8_t numberOfPlots = 0;
+    static uint8_t numberOfPlots = 0;
+    static std::pair<uint8_t,uint8_t> plotBox = {1,1};
+    const std::vector<std::string> colors({"r", "b", "g"});
     numberOfPlots++;
-    static uint8_t plotsInRow=1;
-    static uint8_t plotsInCol = 1;
-    if (numberOfPlots >= plotsInRow * plotsInCol)
-    {
+    plotBox = Sizer(plotBox, numberOfPlots);
 
+    const auto axi = matplot::nexttile();
+    matplot::title(axi, plotTitle);
+    uint8_t i = 0;
+    for (const auto &d : data) {
+        matplot::hold(matplot::on);
+        const auto s = matplot::scatter(axi, d.getX(), d.getY());
+        s->marker_style(".");
+        s->marker_size(2);
+
+        if (data.size() == 1) {
+            s->marker_color("black");
+        }
+        else {
+            s->marker_color(colors[i++ % colors.size()]);
+        }
     }
-    matplot::figure();
-    matplot::scatter(first.getX(), first.getY());
-    matplot::figure();
-    //matplot::subplot()
-    matplot::hold(matplot::on);
-    for (size_t clusterIndex(0); clusterIndex < 2; ++clusterIndex)
-    {
-        Data dataToPrint = second.at(clusterIndex);
-        matplot::scatter(dataToPrint.getX(), dataToPrint.getY());
-    }
-    matplot::hold(matplot::off);*/
+    matplot::hold(matplot::off);
+
+
+    //matplot::hold(matplot::on);
 }
 
 std::pair<std::uint8_t, std::uint8_t> Sizer(std::pair<std::uint8_t, std::uint8_t> subplotSize, const std::size_t plotNumber)

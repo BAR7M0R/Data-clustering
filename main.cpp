@@ -12,6 +12,7 @@
 #include "Files_tools.hpp"
 #include "Ploting_tools.hpp"
 namespace fs = std::filesystem;
+
 int main()
 {
     fs::path filePathDC = "..\\data\\DC-Data4.txt";
@@ -24,12 +25,15 @@ int main()
     CrispClustering dataSetDCCrisp(DC.get(), 2, 2);
     CrispClustering dataSetDCNCrisp(DCN.get(), 2, 5);
     FuzzyClustering dataSetDCFuzzy(DC.get(), 2, 2, 2);
-    FuzzyClustering dataSetDCNFuzzy(DCN.get(), 2, 2, 5);
+    FuzzyClustering dataSetDCNFuzzy(DCN.get(), 3, 5, 5);
 
-    //Ploting(DC, dataSetDCCrisp.getClusters(), "DCCrisp");
-    //Ploting(DCN, dataSetDCNCrisp.getClusters(), "DCNCrisp");
-    //Ploting(DC, dataSetDCFuzzy.getClusters(), "DCFuzzy");
-    //Ploting(DCN, dataSetDCNFuzzy.getClusters(), "DCNFuzzy");
-    //matplot::show();
-    std::cout << "halo grarzynka lecimy z tematem" << "\n";
+    matplot::tiledlayout();
+    Ploting(std::vector<Data>({DC}), "DC row data");
+    Ploting(std::vector<Data>({DCN}), "DC row data");
+    Ploting(dataSetDCCrisp.getClusters(), "dataSetDCCrisp");
+    Ploting(dataSetDCNCrisp.getClusters(), "dataSetDCNCrisp");
+    Ploting(dataSetDCFuzzy.getClusters(), "dataSetDCFuzzy");
+    Ploting(dataSetDCNFuzzy.getClusters(), "dataSetDCNFuzzy");
+
+    matplot::show();
 }

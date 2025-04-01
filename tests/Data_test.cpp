@@ -42,8 +42,6 @@ TEST_CASE("Data class member functions", "[Data]") {
         REQUIRE(points[0].getY() == 2.0);  // Pierwszy punkt Y
     }
 
-    SECTION("size") {
-        REQUIRE(data.size() == 2);  // Rozmiar danych powinien wynosić 2
+    SECTION("size") { REQUIRE(data.size() == 2);  // Rozmiar danych powinien wynosić 2
     }
 }
-
