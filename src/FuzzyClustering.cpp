@@ -11,6 +11,7 @@ using matrixU = std::vector<std::vector<double>>;
 using matrixP = std::vector<Point>;
 using cluster = std::vector<Point>;
 
+/*
 FuzzyClustering::FuzzyClustering(const std::vector<Point> &rowData, const size_t &numberOfClusters, const double &fuzzyFactor, const size_t &calculationDepth)
     : Data(rowData)
     , numberOfClusters_(numberOfClusters)
@@ -113,4 +114,86 @@ matrixP FuzzyClustering::calculatePrototypes(const matrixU& currentMatrixU) cons
     }
     return temp;
 }
+*/
 
+FuzzyClustering::FuzzyClustering(Data rowData, std::size_t clusterNumber, double fuzzyFactor, std::size_t maxIterations,
+    double epsilon):clustersNumber_(clusterNumber),
+                    fuzzyFactor_(fuzzyFactor),
+                    maxIterations_(maxIterations),
+                    epsilon_(epsilon),
+                    rowData_(std::move(rowData)) {
+    if (rowData_.empty() or clustersNumber_ <= 0 or clustersNumber_ > rowData_.size() or fuzzyFactor <= 1.0) {
+        throw std::invalid_argument("wrong input");
+    }
+    initializeMembers();
+    auto prev_cost = 0.0;
+    for (std::size_t i = 0; i < maxIterations_; i++) {
+        updateCenters();
+        updateMembers();
+        auto cost = computeCost();
+        costHistory.push_back(cost);
+        if (i > 0u and std::abs(cost - prev_cost) < epsilon)
+            break;
+        prev_cost = cost;
+    }
+
+}
+
+auto FuzzyClustering::get() {
+    return std::tie(std::move(rowData_), members_, clustersCenters_, clustersNumber_, costHistory);
+}
+
+void FuzzyClustering::initializeMembers() {
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_real_distribution<> dist(0.0, 1.0);
+    members_.resize(clustersNumber_, std::vector<double>(rowData_.size(), 0.0));
+    for (std::size_t i = 0u; i < rowData_.size(); i++) {
+        double sum = 0.0;
+        for (std::size_t j = 0u; j < clustersNumber_; j++) {
+            members_[j][i] = dist(gen);
+            sum += members_[j][i];
+        }
+        for (std::size_t j = 0u; j < clustersNumber_; j++) {
+            members_[j][i] /= sum;
+        }
+    }
+}
+
+void FuzzyClustering::updateCenters() {
+    for (std::size_t i = 0u; i < clustersNumber_; i++) {
+        auto temp_view = std::views::iota(0ull, rowData_.size())
+                         | std::views::transform([this, i](const size_t j) {
+                             return rowData_[j] * std::pow(members_[i][j], fuzzyFactor_);
+                         });
+        clustersCenters_[i] = std::accumulate(temp_view.begin(), temp_view.end(), Point(0.0, 0.0))
+                              / std::accumulate(members_[i].begin(), members_[i].end(), 0.0);
+    }
+}
+
+void FuzzyClustering::updateMembers() {
+    for (int i = 0u; i < clustersNumber_; i++) {
+        for (std::size_t j = 0u; j < clustersNumber_; j++) {
+            auto temp_view = std::views::iota(0ull, rowData_.size())
+                             | std::views::transform([this, i, j](const size_t k) {
+                                 return std::pow(rowData_[j].distance(clustersCenters_[i])
+                                                 / rowData_[j].distance(clustersCenters_[k]),
+                                                 2/(fuzzyFactor_-1));
+                             });
+            members_[j][i] = 1
+                             / std::accumulate(temp_view.begin(), temp_view.end(), 0.0);
+        }
+    }
+}
+
+double FuzzyClustering::computeCost() const {
+    double cost = 0.0;
+    for (size_t i = 0u; i < rowData_.size(); ++i) {
+        for (int j = 0u; j < clustersNumber_; ++j) {
+            double dist = rowData_[i].distance(clustersCenters_[j]);
+            cost += std::pow(members_[i][j], fuzzyFactor_) * std::pow(dist, 2u);
+
+        }
+    }
+    return cost;
+}

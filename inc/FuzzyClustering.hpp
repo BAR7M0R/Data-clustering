@@ -5,30 +5,35 @@
 #ifndef FUZZYCLUSTERING_HPP
 #define FUZZYCLUSTERING_HPP
 
+#include <vector>
+#include <cstddef>
 #include "data.hpp"
 
-
-
-class FuzzyClustering : public Data
+class FuzzyClustering
 {
-    using matrixU = std::vector<std::vector<double>>;
-    using matrixP = std::vector<Point>;
-    using cluster = std::vector<Point>;
 public:
-    FuzzyClustering(const data_vector &rowData, const size_t &numberOfClusters, const double &fuzzyFactor, const size_t &calculationDepth);
-    std::vector<Data>& getClusters();
+    FuzzyClustering(Data rowData,
+        std::size_t clusterNumber,
+        double fuzzyFactor = 2.0,
+        std::size_t maxIterations = 100u,
+        double epsilon = 1e-4);
+
+    auto get();
 
 private:
-    [[nodiscard]] matrixU initU() const;
+    void initializeMembers();
+    void updateCenters();
+    void updateMembers();
+    double computeCost() const;
 
-    [[nodiscard]] matrixP calculatePrototypes(const matrixU& currentMatrixU) const;
-
-    const size_t numberOfClusters_;
-    const size_t calculationDepth_;
+    const std::size_t clustersNumber_;
     const double fuzzyFactor_;
-    matrixU previous_;
-    matrixU next_;
-    std::vector<Data> clusters_;
+    const std::size_t maxIterations_;
+    const double epsilon_;
+    const Data rowData_;
+    std::vector<Point> clustersCenters_;
+    std::vector<std::vector<double>> members_;
+    std::vector<double> costHistory;
 };
 
 

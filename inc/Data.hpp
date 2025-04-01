@@ -19,13 +19,21 @@ public:
     [[nodiscard("Data::getX")]] data_axi getX() const;
     [[nodiscard("Data::getY")]] data_axi getY() const;
     [[nodiscard("Data::get")]] data_vector get() const;
-    [[nodiscard("Data::size")]] size_t size() const;
+    [[nodiscard("Data::getCornerOne")]] Point getCornerOne() const;
+    [[nodiscard("Data::getCornerTwo")]] Point getCornerTwo() const;
 
+    Point operator[](size_t index) const;
+
+    [[nodiscard("Data::getDataCenter")]] Point getDataCenter() const;
+    [[nodiscard("Data::size")]] size_t size() const;
+    bool empty() const;
     bool operator==(const Data &other) const;
+
 
 private:
     data_vector data_;
 };
+
 
 
 #endif //DATA_HPP

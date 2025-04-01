@@ -5,10 +5,21 @@
 #include "Point.hpp"
 #include "iostream"
 #include <cmath>
+#include <random>
 Point::Point(const double x, const double y)
     : x_(x)
     , y_(y)
 {}
+
+Point::Point(const double xMin, const double xMax, const double yMin, const double yMax) {
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_real_distribution<> xScope(xMin, xMax);
+    std::uniform_real_distribution<> yScope(yMin, yMax);
+    x_ = xScope(gen);
+    y_ = yScope(gen);
+}
+
 Point Point::operator*(const double mul) const
 {
     return {x_ * mul,y_ * mul};
@@ -51,6 +62,27 @@ double Point::getY() const
 {
     return y_;
 }
+
+auto Point::get() const -> Point {
+    return {x_, y_};
+}
+
+bool Point::checkIfFirstXGreater(const Point &first, const Point &second) {
+    return first.getX() > second.getX();
+}
+
+bool Point::checkIfFirstYGreater(const Point &first, const Point &second) {
+    return first.getY() > second.getY();
+}
+
+bool Point::checkIfFirstXSmaller(const Point &first, const Point &second) {
+    return first.getX() < second.getX();
+}
+
+bool Point::checkIfFirstYSmaller(const Point &first, const Point &second) {
+    return first.getY() < second.getY();
+}
+
 void Point::print() const
 {
     std::cout << "x: " << x_ << "y: " << y_ << "\n";

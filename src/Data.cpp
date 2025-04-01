@@ -31,8 +31,13 @@ std::vector<Point> Data::get() const
 }
 size_t Data::size() const
 {
-    return(data_.size());
+    return data_.size();
 }
+
+bool Data::empty() const {
+    return data_.empty();
+}
+
 bool Data::operator==(const Data& other) const {
     if (other.size() != size()) {
         throw std::runtime_error("Data::operator==: Size mismatch");
@@ -43,4 +48,34 @@ bool Data::operator==(const Data& other) const {
         if (!result) break;
     }
     return result;
+}
+Point Data::getCornerOne() const {
+    const auto itX = std::ranges::min_element(data_, Point::checkIfFirstXSmaller);
+    const auto itY = std::ranges::min_element(data_, Point::checkIfFirstYSmaller);
+
+    if (itX == data_.end() || itY == data_.end()) {
+        throw std::runtime_error("lack of data inside data_");
+    }
+
+    double x = itX->getX();
+    double y = itY->getY();
+
+    return Point{x, y};
+}
+
+Point Data::getCornerTwo() const {
+    auto itX = std::ranges::max_element(data_, Point::checkIfFirstXGreater);
+    auto itY = std::ranges::max_element(data_, Point::checkIfFirstYGreater);
+
+    if (itX == data_.end() || itY == data_.end()) {
+        throw std::runtime_error("lack of data inside data_");
+    }
+
+    double x = itX->getX();
+    double y = itY->getY();
+
+    return Point{x, y};
+}
+Point Data::operator[](const size_t index) const {
+    return data_[index];
 }
