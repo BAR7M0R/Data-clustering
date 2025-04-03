@@ -67,6 +67,8 @@ auto Point::get() const -> Point {
     return {x_, y_};
 }
 
+
+
 bool Point::checkIfFirstXGreater(const Point &first, const Point &second) {
     return first.getX() > second.getX();
 }
@@ -85,5 +87,5 @@ bool Point::checkIfFirstYSmaller(const Point &first, const Point &second) {
 
 void Point::print() const
 {
-    std::cout << "x: " << x_ << "y: " << y_ << "\n";
+    std::cout << "x: " << x_ << "y: " << y_ <<'\n';
 }

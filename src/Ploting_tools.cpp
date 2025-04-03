@@ -9,11 +9,7 @@
 
 void Ploting(const std::vector<Data> &data, const std::string &plotTitle)
 {
-    static uint8_t numberOfPlots = 0;
-    static std::pair<uint8_t,uint8_t> plotBox = {1,1};
     const std::vector<std::string> colors({"r", "b", "g"});
-    numberOfPlots++;
-    plotBox = Sizer(plotBox, numberOfPlots);
 
     const auto axi = matplot::nexttile();
     matplot::title(axi, plotTitle);
@@ -32,10 +28,33 @@ void Ploting(const std::vector<Data> &data, const std::string &plotTitle)
         }
     }
     matplot::hold(matplot::off);
-
-
-    //matplot::hold(matplot::on);
 }
+
+/*void Ploting(Data points, std::vector<std::vector<double>> waights, std::vector<Point> clusterCenters,
+    const std::string &plotTitle) {
+    const std::vector<std::string> colors({"r", "b", "g"});
+
+    const auto axi = matplot::nexttile();
+    matplot::title(axi, plotTitle);
+    std::vector<Data> data;
+    data.resize(clusterNumber
+    uint8_t i = 0;
+    for (const auto &d : data) {
+        matplot::hold(matplot::on);
+        const auto s = matplot::scatter(axi, d.getX(), d.getY());
+        s->marker_style(".");
+        s->marker_size(2);
+
+        if (data.size() == 1) {
+            s->marker_color("black");
+        }
+        else {
+            s->marker_color(colors[i++ % colors.size()]);
+        }
+    }
+    matplot::hold(matplot::off);
+
+}*/
 
 std::pair<std::uint8_t, std::uint8_t> Sizer(std::pair<std::uint8_t, std::uint8_t> subplotSize, const std::size_t plotNumber)
 {

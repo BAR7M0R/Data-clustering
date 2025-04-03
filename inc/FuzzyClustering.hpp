@@ -9,16 +9,16 @@
 #include <cstddef>
 #include "data.hpp"
 
-class FuzzyClustering
+class FuzzyClustering final
 {
 public:
-    FuzzyClustering(Data rowData,
+    FuzzyClustering(const Data &rowData,
         std::size_t clusterNumber,
         double fuzzyFactor = 2.0,
         std::size_t maxIterations = 100u,
-        double epsilon = 1e-4);
+        double epsilon = 4);
 
-    auto get();
+    std::tuple<Data, std::vector<std::vector<double>>, std::vector<Point>> get();
 
 private:
     void initializeMembers();

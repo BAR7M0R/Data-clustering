@@ -5,6 +5,8 @@
 #ifndef POINT_HPP
 #define POINT_HPP
 
+#include <ostream>
+
 class Point
 {
 public:
@@ -22,13 +24,11 @@ public:
     [[nodiscard("point::getY")]] auto getY() const -> double;
     [[nodiscard("point::get")]] auto get() const -> Point;
 
-
-
+    void print() const;
     static bool checkIfFirstXGreater(const Point &first, const Point &second);
     static bool checkIfFirstYGreater(const Point &first, const Point &second);
     static bool checkIfFirstXSmaller(const Point &first, const Point &second);
     static bool checkIfFirstYSmaller(const Point &first, const Point &second);
-    void print() const;
 private:
     double x_ = 0.0;
     double y_ = 0.0;

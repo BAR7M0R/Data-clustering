@@ -8,7 +8,7 @@
 #include <algorithm>
 #include <ranges>
 #include "Point.hpp"
-
+#include <iostream>
 Data::Data(const std::vector<Point>& rangeOfData)
 : data_(rangeOfData)
 {}
@@ -49,6 +49,13 @@ bool Data::operator==(const Data& other) const {
     }
     return result;
 }
+
+void Data::print() const {
+    for (auto p: data_) {
+        p.print();
+    }
+}
+
 Point Data::getCornerOne() const {
     const auto itX = std::ranges::min_element(data_, Point::checkIfFirstXSmaller);
     const auto itY = std::ranges::min_element(data_, Point::checkIfFirstYSmaller);

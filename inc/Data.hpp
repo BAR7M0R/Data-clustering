@@ -5,10 +5,12 @@
 #ifndef DATA_HPP
 #define DATA_HPP
 #include <vector>
+#include <ostream>
 #include "Point.hpp"
-
 using data_vector = std::vector<Point>;
 using data_axi = std::vector<double>;
+
+
 
 class Data
 {
@@ -28,7 +30,7 @@ public:
     [[nodiscard("Data::size")]] size_t size() const;
     bool empty() const;
     bool operator==(const Data &other) const;
-
+    void print() const;
 
 private:
     data_vector data_;
