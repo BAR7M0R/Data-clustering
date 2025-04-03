@@ -17,6 +17,7 @@ class CrispClustering : public Data
 {
 public:
     CrispClustering(const std::vector<Point>& rowData, const size_t& numberOfClusters, const size_t& calculationDepth);
+
     std::vector<Data> &getClusters();
 private:
     [[nodiscard]] matrixU initU() const;
