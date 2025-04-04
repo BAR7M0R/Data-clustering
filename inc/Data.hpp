@@ -16,7 +16,7 @@ class Data
 {
 public:
     Data() = default;
-
+    Data(std::size_t length, Point initValue);
     explicit Data(const data_vector& rangeOfData);
     [[nodiscard("Data::getX")]] data_axi getX() const;
     [[nodiscard("Data::getY")]] data_axi getY() const;

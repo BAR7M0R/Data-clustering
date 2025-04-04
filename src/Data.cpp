@@ -9,6 +9,14 @@
 #include <ranges>
 #include "Point.hpp"
 #include <iostream>
+
+
+Data::Data(const std::size_t length, const Point initValue)
+    : data_(std::vector(length, initValue))
+{
+
+}
+
 Data::Data(const std::vector<Point>& rangeOfData)
 : data_(rangeOfData)
 {}
