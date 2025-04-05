@@ -7,7 +7,7 @@
 #include <matplot/freestanding/plot.h>
 #include <limits>
 TEST_CASE("Ploting tools", "[ploting tools]") {
-    SECTION("sizer normal functionality")
+    /*SECTION("sizer normal functionality")
     {
         struct testDataStruct{
             std::pair<std::uint8_t, std::uint8_t> subplotSize;
@@ -51,6 +51,6 @@ TEST_CASE("Ploting tools", "[ploting tools]") {
             REQUIRE(fst == outputSize.first);
             REQUIRE(snd == outputSize.second);
         }
-    }
+    }*/
 
 }

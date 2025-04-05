@@ -12,11 +12,5 @@
 #include "Data.hpp"
 
 void Ploting(const std::vector<Data> &data, const std::string &plotTitle);
-void Ploting(const Data points,
-    const std::vector<std::vector<double>> waights,
-    const std::vector<Point> clusterCenters,
-    const std::size_t clusterNumber,
-    const std::string &plotTitle);
-std::pair<std::uint8_t, std::uint8_t> Sizer(std::pair<std::uint8_t, std::uint8_t> subplotSize, std::size_t plotNumber);
-
+void Ploting(const Data& points, const std::vector<std::vector<double>> &weights, const std::vector<Point> &clusterCenters, const std::string &plotTitle);
 #endif //PLOTING_TOOLS_HPP

@@ -64,6 +64,14 @@ void Data::print() const {
     }
 }
 
+void Data::push_back(const Point &point) {
+    data_.push_back(point);
+}
+
+void Data::pop_back() {
+    return data_.pop_back();
+}
+
 Point Data::getCornerOne() const {
     const auto itX = std::ranges::min_element(data_, Point::checkIfFirstXSmaller);
     const auto itY = std::ranges::min_element(data_, Point::checkIfFirstYSmaller);
@@ -91,6 +99,10 @@ Point Data::getCornerTwo() const {
 
     return Point{x, y};
 }
-Point Data::operator[](const size_t index) const {
+Point& Data::operator[](const size_t index){
+    return data_[index];
+}
+
+const Point& Data::operator[](const size_t index) const {
     return data_[index];
 }

@@ -19,37 +19,31 @@ int main()
     std::cout.flush();
     fs::path filePathDC = "..\\data\\DC-Data4.txt";
     fs::path filePathDCN = "..\\data\\DCN-Data4.txt";
-    //fs::path testPath = "..\\src\\test.txt";
+
     const Data DC(FileParser(filePathDC));
     const Data DCN(FileParser(filePathDCN));
-    //const data testD(dRead(testPath));
-    //const Data test(std::vector<Point>({{1.,8.}, {3.,8.},{1.,6.}, {3.,6.}, {8.,1.}, {8.,3.},{6.,1.}, {6.,3.}}));
+
     CrispClustering datasetDCCrisp(DC.get(), 2, 2);
     CrispClustering datasetDCNCrisp(DCN.get(), 2, 5);
     FuzzyClustering datasetDCFuzzy(DC, 2, 2);
     FuzzyClustering datasetDCNFuzzy(DCN, 3, 2);
-
-    auto [a, b, c] = datasetDCNFuzzy.get();
-    a.print();
-    for (auto bp: b) {
-        std::cout << "next group\n";
-        for (auto bpp: bp) {
-            std::cout << (bpp > 0.5) << " " << bpp << "\n";
-        }
-        std::cout << "\n";
-    }
-    std::cout << "centers\n";
-    for (auto cp :c)
-    {
-        cp.print();
-    }
-    //matplot::tiledlayout();
-    //Ploting(std::vector<Data>({DC}), "DC row data");
-    //Ploting(std::vector<Data>({DCN}), "DC row data");
-    //Ploting(datasetDCCrisp.getClusters(), "dataSetDCCrisp");
-    //Ploting(datasetDCNCrisp.getClusters(), "dataSetDCNCrisp");
-    //Ploting(dataSetDCFuzzy.getClusters(), "dataSetDCFuzzy");
-    //Ploting(dataSetDCNFuzzy.getClusters(), "dataSetDCNFuzzy");
-
-    //matplot::show();
+    FuzzyClustering datasetDCNFuzzy2(DCN, 2, 2);
+    FuzzyClustering datasetDCNFuzzy23(DCN, 3, 3);
+    FuzzyClustering datasetDCNFuzzy215(DCN, 3, 1.5);
+    auto [dataDC, membersDC, centroidsDC] = datasetDCFuzzy.get();
+    auto [dataDCN, membersDCN, centroidsDCN] = datasetDCNFuzzy.get();
+    auto [dataDCN2, membersDCN2, centroidsDCN2] = datasetDCNFuzzy2.get();
+    auto [dataDCN23, membersDCN23, centroidsDCN23] = datasetDCNFuzzy23.get();
+    auto [dataDCN215, membersDCN215, centroidsDCN215] = datasetDCNFuzzy215.get();
+    matplot::tiledlayout();
+    Ploting(std::vector<Data>({DC}), "DC row data");
+    Ploting(std::vector<Data>({DCN}), "DC row data");
+    Ploting(datasetDCCrisp.getClusters(), "dataSetDCCrisp");
+    Ploting(datasetDCNCrisp.getClusters(), "dataSetDCNCrisp");
+    Ploting(dataDC, membersDC, centroidsDC, "dataSetDCFuzzy");
+    Ploting(dataDCN, membersDCN, centroidsDCN, "dataSetDCNFuzzy clusters:3 fuzzyfactor: 2");
+    Ploting(dataDCN2, membersDCN2, centroidsDCN2, "dataSetDCNFuzzy clusters:2 fuzzyfactor: 2");
+    Ploting(dataDCN23, membersDCN23, centroidsDCN23, "dataSetDCNFuzzy clusters:3 fuzzyfactor: 1.5");
+    Ploting(dataDCN215, membersDCN215, centroidsDCN215, "dataSetDCNFuzzy clusters:3 fuzzyfactor: 3");
+    matplot::show();
 }

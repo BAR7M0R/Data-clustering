@@ -24,7 +24,7 @@ FuzzyClustering::FuzzyClustering(const Data &rowData, std::size_t clusterNumber,
     if (rowData_.empty() or clustersNumber_ <= 0 or clustersNumber_ > rowData_.size() or fuzzyFactor <= 1.0) {
         throw std::invalid_argument("wrong input");
     }
-    clustersCenters_ = std::vector<Point>({Point(2.,7.),Point(7.,2.)});
+    clustersCenters_ = std::vector<Point>(clustersNumber_);
     initializeMembers();
     auto prev_cost = 0.0;
     for (std::size_t i = 0; i < maxIterations_; i++) {

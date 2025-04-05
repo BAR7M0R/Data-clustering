@@ -13,6 +13,7 @@ public:
     Point() = default;
     Point(double x, double y);
     Point(double xMin, double xMax, double yMin, double yMax);
+    Point& operator=(const Point& other) = default;
     Point& operator+=(const Point& p);
     bool operator==(const Point& p) const;
     [[nodiscard("point::operator+")]] Point operator+(const Point& p) const;

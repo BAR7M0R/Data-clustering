@@ -20,6 +20,7 @@ Point::Point(const double xMin, const double xMax, const double yMin, const doub
     y_ = yScope(gen);
 }
 
+
 Point Point::operator*(const double mul) const
 {
     return {x_ * mul,y_ * mul};

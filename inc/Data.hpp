@@ -24,13 +24,18 @@ public:
     [[nodiscard("Data::getCornerOne")]] Point getCornerOne() const;
     [[nodiscard("Data::getCornerTwo")]] Point getCornerTwo() const;
 
-    Point operator[](size_t index) const;
+    Point& operator[](size_t index);
+    const Point& operator[](size_t index) const;
 
     [[nodiscard("Data::getDataCenter")]] Point getDataCenter() const;
     [[nodiscard("Data::size")]] size_t size() const;
     bool empty() const;
     bool operator==(const Data &other) const;
     void print() const;
+
+    void push_back(const Point &point);
+    void pop_back();
+
 
 private:
     data_vector data_;
