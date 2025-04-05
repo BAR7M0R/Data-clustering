@@ -12,11 +12,11 @@ list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
 find_package(Matplot++ CONFIG REQUIRED)
 find_package(Catch2 3 REQUIRED)
 
-add_library(Point STATIC ${CMAKE_CURRENT_SOURCE_DIR}/src/Point.cpp)
+add_library(Point STATIC libs/Point/Src/Point.cpp)
 target_compile_features(Point PUBLIC cxx_std_20)
 target_include_directories(Point PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/inc)
 
-add_library(Data STATIC ${CMAKE_CURRENT_SOURCE_DIR}/src/Data.cpp)
+add_library(Data STATIC libs/Data/Src/Data.cpp)
 target_compile_features(Data PUBLIC cxx_std_20)
 target_include_directories(Data PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/inc)
 target_link_libraries(Data PUBLIC Point)
@@ -31,12 +31,12 @@ target_compile_features(FuzzyClustering PUBLIC cxx_std_20)
 target_include_directories(FuzzyClustering PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/inc)
 target_link_libraries(FuzzyClustering PRIVATE Point Data)
 
-add_library(Files_tools STATIC ${CMAKE_CURRENT_SOURCE_DIR}/src/Files_tools.cpp)
+add_library(Files_tools STATIC libs/Files_tools/Src/Files_tools.cpp)
 target_compile_features(Files_tools PUBLIC cxx_std_20)
 target_include_directories(Files_tools PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/inc)
 target_link_libraries(Files_tools PRIVATE Point Data)
 
-add_library(Ploting_tools STATIC ${CMAKE_CURRENT_SOURCE_DIR}/src/Ploting_tools.cpp)
+add_library(Ploting_tools STATIC libs/Ploting_tools/Src/Ploting_tools.cpp)
 target_compile_features(Ploting_tools PUBLIC cxx_std_20)
 target_include_directories(Ploting_tools PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/inc)
 target_link_libraries(Ploting_tools PRIVATE Point Data Matplot++::cimg  Matplot++::matplot)
@@ -45,11 +45,11 @@ find_package(Catch2 CONFIG REQUIRED)
 
 add_executable(my_tests
         ${CMAKE_CURRENT_SOURCE_DIR}/tests/CrispClustering_test.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/tests/Data_test.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/tests/FuzzyClustering_test.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/tests/Point_test.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/tests/Files_tools_test.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/tests/Ploting_tools_test.cpp)
+        libs/Data/tests/Data_test.cpp
+        libs/Point/Tests/Point_test.cpp
+        libs/Files_tools/Tests/Files_tools_test.cpp
+        libs/Ploting_tools/Tests/Ploting_tools_test.cpp)
 target_compile_features(my_tests PRIVATE cxx_std_20)
 target_include_directories(my_tests PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/inc)
 target_link_libraries(my_tests PRIVATE Catch2::Catch2WithMain)
