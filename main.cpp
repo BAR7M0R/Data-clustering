@@ -17,8 +17,8 @@ namespace fs = std::filesystem;
 int main()
 {
     std::cout.flush();
-    fs::path filePathDC = "..\\data\\DC-Data4.txt";
-    fs::path filePathDCN = "..\\data\\DCN-Data4.txt";
+    fs::path filePathDC = "..\\DData\\DC-Data4.txt";
+    fs::path filePathDCN = "..\\DData\\DCN-Data4.txt";
 
     const Data DC(FileParser(filePathDC));
     const Data DCN(FileParser(filePathDCN));
@@ -36,8 +36,8 @@ int main()
     auto [dataDCN23, membersDCN23, centroidsDCN23] = datasetDCNFuzzy23.get();
     auto [dataDCN215, membersDCN215, centroidsDCN215] = datasetDCNFuzzy215.get();
     matplot::tiledlayout();
-    Ploting(std::vector<Data>({DC}), "DC row data");
-    Ploting(std::vector<Data>({DCN}), "DC row data");
+    Ploting(std::vector<Data>({DC}), "DC row Data");
+    Ploting(std::vector<Data>({DCN}), "DC row Data");
     Ploting(datasetDCCrisp.getClusters(), "dataSetDCCrisp");
     Ploting(datasetDCNCrisp.getClusters(), "dataSetDCNCrisp");
     Ploting(dataDC, membersDC, centroidsDC, "dataSetDCFuzzy");

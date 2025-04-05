@@ -77,7 +77,7 @@ Point Data::getCornerOne() const {
     const auto itY = std::ranges::min_element(data_, Point::checkIfFirstYSmaller);
 
     if (itX == data_.end() || itY == data_.end()) {
-        throw std::runtime_error("lack of data inside data_");
+        throw std::runtime_error("lack of Data inside data_");
     }
 
     double x = itX->getX();
@@ -91,7 +91,7 @@ Point Data::getCornerTwo() const {
     auto itY = std::ranges::max_element(data_, Point::checkIfFirstYGreater);
 
     if (itX == data_.end() || itY == data_.end()) {
-        throw std::runtime_error("lack of data inside data_");
+        throw std::runtime_error("lack of Data inside data_");
     }
 
     double x = itX->getX();

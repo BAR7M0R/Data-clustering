@@ -73,16 +73,16 @@ void Ploting(const Data& points, const std::vector<std::vector<double>> &weights
 
     const auto axi = matplot::nexttile();
     matplot::title(axi, plotTitle);
-    std::vector<Data> data;
-    data.resize(clusterNumber
+    std::vector<Data> Data;
+    Data.resize(clusterNumber
     uint8_t i = 0;
-    for (const auto &d : data) {
+    for (const auto &d : Data) {
         matplot::hold(matplot::on);
         const auto s = matplot::scatter(axi, d.getX(), d.getY());
         s->marker_style(".");
         s->marker_size(2);
 
-        if (data.size() == 1) {
+        if (Data.size() == 1) {
             s->marker_color("black");
         }
         else {

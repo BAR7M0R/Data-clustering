@@ -10,7 +10,7 @@ TEST_CASE("Data class constructors", "[Data]") {
         REQUIRE(data.size() == 0);  // Domyślny konstruktor powinien inicjować pusty wektor
     }
 
-    SECTION("data vector") {
+    SECTION("Data vector") {
         data_vector range = {{1.0, 2.0}, {3.0, 4.0}};
         Data data(range);
         REQUIRE(data.size() == 2);  // Oczekujemy, że rozmiar wektora wynosi 2

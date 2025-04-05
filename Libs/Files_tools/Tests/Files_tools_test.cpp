@@ -7,7 +7,7 @@
 #include <sstream>
 
 TEST_CASE("FileParser handles valid input correctly", "[FileParser]") {
-    std::filesystem::path testFilePath = "..\\data\\test_data.txt";
+    std::filesystem::path testFilePath = "..\\Data\\test_data.txt";
     std::ofstream testFile(testFilePath);
     if (!testFile.is_open()) {
         throw std::runtime_error("Could not open file");
