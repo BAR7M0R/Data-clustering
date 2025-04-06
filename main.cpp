@@ -17,8 +17,8 @@ namespace fs = std::filesystem;
 int main()
 {
     std::cout.flush();
-    fs::path filePathDC = "..\\DData\\DC-Data4.txt";
-    fs::path filePathDCN = "..\\DData\\DCN-Data4.txt";
+    fs::path filePathDC = "..\\Data\\DC-Data4.txt";
+    fs::path filePathDCN = "..\\Data\\DCN-Data4.txt";
 
     const Data DC(FileParser(filePathDC));
     const Data DCN(FileParser(filePathDCN));
