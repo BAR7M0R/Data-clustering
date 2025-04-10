@@ -7,6 +7,7 @@
 #include <vector>
 #include <algorithm>
 #include <ranges>
+#include <iterator>
 #include "Point.hpp"
 #include <iostream>
 
@@ -64,8 +65,26 @@ void Data::print() const {
     }
 }
 
+auto Data::begin() {
+    return data_.begin();
+}
+auto Data::cbegin() const {
+    return data_.cbegin();
+}
+auto Data::end() {
+    return data_.end();
+}
+auto Data::cend() const {
+    return data_.cend();
+}
+
 void Data::push_back(const Point &point) {
     data_.push_back(point);
+}
+
+void Data::push_back(const Data &data) {
+    data_.reserve(data_.size() + data.size());
+    data_.insert(data_.end(), data.cbegin(), data.cend());
 }
 
 void Data::pop_back() {
@@ -93,11 +112,7 @@ Point Data::getCornerTwo() const {
     if (itX == data_.end() || itY == data_.end()) {
         throw std::runtime_error("lack of Data inside data_");
     }
-
-    double x = itX->getX();
-    double y = itY->getY();
-
-    return Point{x, y};
+    return Point{itX->getX(), itY->getY()};
 }
 Point& Data::operator[](const size_t index){
     return data_[index];

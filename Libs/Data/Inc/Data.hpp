@@ -7,6 +7,7 @@
 #include <vector>
 #include <ostream>
 #include "Point.hpp"
+
 using data_vector = std::vector<Point>;
 using data_axi = std::vector<double>;
 
@@ -30,12 +31,17 @@ public:
     [[nodiscard("Data::getDataCenter")]] Point getDataCenter() const;
     [[nodiscard("Data::size")]] size_t size() const;
     bool empty() const;
-    bool operator==(const Data &other) const;
+    bool operator==(const Data& other) const;
     void print() const;
-
-    void push_back(const Point &point);
+    auto begin();
+    auto cbegin() const;
+    auto end();
+    auto cend() const;
+    void push_back(const Point& point);
+    void push_back(const Data& data);
     void pop_back();
 
+    virtual ~Data() = default;
 
 private:
     data_vector data_;
