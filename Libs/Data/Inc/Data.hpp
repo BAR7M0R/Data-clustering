@@ -17,7 +17,7 @@
 #ifndef DATA_HPP
 #define DATA_HPP
 #include <vector>
-#include <ostream>
+#include <functional>
 #include "Point.hpp"
 
 using data_vector = std::vector<Point>;
@@ -30,7 +30,9 @@ class Data
 public:
     Data() = default;
     Data(std::size_t length, Point initValue);
+    Data(const Data& d);
     explicit Data(const data_vector& rangeOfData);
+    Data(const Data& d, const std::function<Point(const Point&)> &fun);
     [[nodiscard("Data::getX")]] data_axi getX() const;
     [[nodiscard("Data::getY")]] data_axi getY() const;
     [[nodiscard("Data::get")]] data_vector get() const;
@@ -58,7 +60,6 @@ public:
 private:
     data_vector data_;
 };
-
 
 
 #endif //DATA_HPP

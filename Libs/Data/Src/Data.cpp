@@ -17,16 +17,25 @@
 
 #include <vector>
 #include <algorithm>
-#include <ranges>
 #include <iterator>
 #include "Point.hpp"
-#include <iostream>
+#include <ostream>
 
 
 Data::Data(const std::size_t length, const Point initValue)
     : data_(std::vector(length, initValue))
 {
 
+}
+
+Data::Data(const Data &d)
+: Data(d.get())
+{}
+
+Data::Data(const Data& d, const std::function<Point(const Point&)> &fun)
+    : Data(d)
+{
+    std::ranges::for_each(data_, fun);
 }
 
 Data::Data(const std::vector<Point>& rangeOfData)
