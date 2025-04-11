@@ -16,6 +16,7 @@ add_subdirectory(Libs/Point)
 add_subdirectory(Libs/Data)
 add_subdirectory(Libs/Files_tools)
 add_subdirectory(Libs/Ploting_tools)
+add_subdirectory(Libs/Linspain)
 
 add_library(CrispClustering STATIC Src/CrispClustering.cpp)
 target_compile_features(CrispClustering PUBLIC cxx_std_20)
