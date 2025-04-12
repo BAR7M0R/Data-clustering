@@ -55,7 +55,7 @@ public:
     void push_back(const Data& data);
     void pop_back();
 
-    virtual ~Data() = default;
+    ~Data() = default;
 
 private:
     data_vector data_;
