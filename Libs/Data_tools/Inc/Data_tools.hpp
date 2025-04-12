@@ -21,24 +21,11 @@
 #include <algorithm>
 
 namespace DataTools {
-    inline data_axi convertDataXToAxi(Data d, const std::function<double(const double&)>& operation)
-    {
-        auto temp = d.getX();
-        std::ranges::for_each(temp, operation);
-        return temp;
-    }
-    inline data_axi convertDataYToAxi(Data& d, const std::function<double(const double&)>& operation)
-    {
-        auto temp = d.getY();
-        std::ranges::for_each(temp, operation);
-        return temp;
-    }
+    inline data_axi convertDataXToAxi(const Data& d, const std::function<void(double&)>& operation);
 
-    inline data_axi convertAxiToAxi(data_axi d, const std::function<double(const double&)>& operation)
-    {
-        std::ranges::for_each(d, operation);
-        return d;
-    }
+    inline data_axi convertDataYToAxi(const Data& d, const std::function<void(double&)>& operation);
+
+    inline data_axi convertAxiToAxi(data_axi d, const std::function<void(double&)>& operation);
 }
 
 

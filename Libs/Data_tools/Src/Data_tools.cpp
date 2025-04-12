@@ -15,3 +15,20 @@
  ******************************************************************************/
 
 #include "Data_tools.hpp"
+
+data_axi DataTools::convertDataXToAxi(const Data &d, const std::function<void(double &)> &operation) {
+    auto temp = d.getX();
+    std::ranges::for_each(temp, operation);
+    return temp;
+}
+
+data_axi DataTools::convertDataYToAxi(const Data &d, const std::function<void(double &)> &operation) {
+    auto temp = d.getY();
+    std::ranges::for_each(temp, operation);
+    return temp;
+}
+
+data_axi DataTools::convertAxiToAxi(data_axi d, const std::function<void(double &)> &operation) {
+    std::ranges::for_each(d, operation);
+    return d;
+}
