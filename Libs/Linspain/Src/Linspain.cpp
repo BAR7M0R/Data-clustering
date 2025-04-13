@@ -18,7 +18,7 @@
 Linspain::Linspain(const Point &first,
                    const Point &second,
                    const std::size_t &numPointsBetween,
-                   const bool lastPoint = true)
+                   const bool lastPoint)
                   : Data(numPointsBetween+1ull, Point{0.0, 0.0})
                   , last_point_(lastPoint)
 {
