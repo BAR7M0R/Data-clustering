@@ -52,6 +52,7 @@ public:
     void push_back(const Point& point);
     void push_back(const Data& data);
     void pop_back();
+    void reserve(std::size_t size);
 
     ~Data() = default;
 

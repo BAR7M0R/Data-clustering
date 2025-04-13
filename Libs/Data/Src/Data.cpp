@@ -111,6 +111,10 @@ void Data::pop_back() {
     return data_.pop_back();
 }
 
+void Data::reserve(const std::size_t size) {
+    data_.reserve(size);
+}
+
 Point Data::getCornerOne() const {
     const auto itX = std::ranges::min_element(data_, Point::checkIfFirstXSmaller);
     const auto itY = std::ranges::min_element(data_, Point::checkIfFirstYSmaller);
