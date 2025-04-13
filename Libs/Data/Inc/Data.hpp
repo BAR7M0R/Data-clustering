@@ -23,8 +23,6 @@
 using data_vector = std::vector<Point>;
 using data_axi = std::vector<double>;
 
-
-
 class Data
 {
 public:
