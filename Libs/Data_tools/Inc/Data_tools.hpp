@@ -26,6 +26,8 @@ namespace DataTools {
     data_axi convertDataYToAxi(const Data& d, const std::function<void(double&)>& operation);
 
     data_axi convertAxiToAxi(data_axi d, const std::function<void(double&)>& operation);
+
+    data_axi calculateError(data_axi& first, data_axi& second);
 }
 
 
