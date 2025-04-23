@@ -23,9 +23,42 @@
 using data_vector = std::vector<Point>;
 using data_axi = std::vector<double>;
 
+class x_iterator {
+    data_vector::iterator it;
+public:
+    using iterator_category = std::input_iterator_tag;
+    using value_type = double;
+    using difference_type = std::ptrdiff_t;
+    using pointer = double*;
+    using reference = double&;
+
+    explicit x_iterator(data_vector::iterator i) : it(i) {}
+    x_iterator& operator++() { ++it; return *this; }
+    double& operator*() { return it->getX_ref(); }
+    bool operator!=(const x_iterator& other) const { return it != other.it; }
+};
+
+class y_iterator {
+    data_vector::iterator it;
+public:
+    using iterator_category = std::input_iterator_tag;
+    using value_type = double;
+    using difference_type = std::ptrdiff_t;
+    using pointer = double*;
+    using reference = double&;
+
+    explicit y_iterator(data_vector::iterator i) : it(i) {}
+    y_iterator& operator++() { ++it; return *this; }
+    double& operator*() { return it->getY_ref(); }
+    bool operator!=(const y_iterator& other) const { return it != other.it; }
+};
+
 class Data
 {
 public:
+
+
+
     Data() = default;
     Data(std::size_t length, Point initValue);
     Data(const Data& d);
@@ -40,21 +73,25 @@ public:
     Point& operator[](size_t index);
     const Point& operator[](size_t index) const;
 
-    [[nodiscard("Data::getDataCenter")]] Point getDataCenter() const;
     [[nodiscard("Data::size")]] size_t size() const;
     [[nodiscard("Data::empty")]] bool empty() const;
     [[nodiscard("Data::operator==")]] bool operator==(const Data& other) const;
     void print() const;
-    [[nodiscard("Data::begin")]] auto begin();
-    [[nodiscard("Data::cbegin")]] auto cbegin() const;
-    [[nodiscard("Data::end")]] auto end();
-    [[nodiscard("Data::cend")]] auto cend() const;
+    [[nodiscard("Data::begin")]] data_vector::iterator begin();
+    [[nodiscard("Data::cbegin")]] data_vector::const_iterator cbegin() const;
+    [[nodiscard("Data::x_begin")]] x_iterator x_begin();
+    [[nodiscard("Data::x_begin")]] y_iterator y_begin();
+    [[nodiscard("Data::end")]] data_vector::iterator end();
+    [[nodiscard("Data::cend")]] data_vector::const_iterator cend() const;
+    [[nodiscard("Data::x_begin")]] x_iterator x_end();
+    [[nodiscard("Data::x_begin")]] y_iterator y_end();
     void push_back(const Point& point);
     void push_back(const Data& data);
     void pop_back();
     void reserve(std::size_t size);
 
     ~Data() = default;
+
 
 private:
     data_vector data_;

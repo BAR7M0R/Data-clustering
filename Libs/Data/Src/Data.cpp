@@ -19,8 +19,6 @@
 #include <algorithm>
 #include <iterator>
 #include "Point.hpp"
-#include <ostream>
-
 
 Data::Data(const std::size_t length, const Point initValue)
     : data_(std::vector(length, initValue))
@@ -85,16 +83,16 @@ void Data::print() const {
     }
 }
 
-auto Data::begin() {
+data_vector::iterator Data::begin() {
     return data_.begin();
 }
-auto Data::cbegin() const {
+data_vector::const_iterator Data::cbegin() const {
     return data_.cbegin();
 }
-auto Data::end() {
+data_vector::iterator Data::end() {
     return data_.end();
 }
-auto Data::cend() const {
+data_vector::const_iterator Data::cend() const {
     return data_.cend();
 }
 
@@ -144,4 +142,20 @@ Point& Data::operator[](const size_t index){
 
 const Point& Data::operator[](const size_t index) const {
     return data_[index];
+}
+
+x_iterator Data::x_begin() {
+    return x_iterator(data_.begin());
+}
+
+x_iterator Data::x_end() {
+    return x_iterator(data_.end());
+}
+
+y_iterator Data::y_begin() {
+    return y_iterator(data_.begin());
+}
+
+y_iterator Data::y_end() {
+    return y_iterator(data_.end());
 }
