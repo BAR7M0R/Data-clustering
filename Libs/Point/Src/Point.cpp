@@ -76,6 +76,18 @@ double Point::getY() const
 {
     return y_;
 }
+auto Point::getX_ref() -> double & {
+    return x_;
+}
+const double& Point::getX_ref() const {
+    return x_;
+}
+auto Point::getY_ref() -> double & {
+    return y_;
+}
+const double& Point::getY_ref() const {
+    return y_;
+}
 
 auto Point::get() const -> Point {
     return {x_, y_};
@@ -103,3 +115,5 @@ void Point::print() const
 {
     std::cout << "x: " << x_ << "y: " << y_ <<'\n';
 }
+
+

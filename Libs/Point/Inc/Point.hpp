@@ -33,6 +33,10 @@ public:
     [[nodiscard("point::distance")]] double distance(const Point& second) const;
     [[nodiscard("point::getX")]] auto getX() const -> double;
     [[nodiscard("point::getY")]] auto getY() const -> double;
+    [[nodiscard("point::getX_ref")]] auto getX_ref() -> double&;
+    const double &getX_ref() const;
+    [[nodiscard("point::getY_ref")]] auto getY_ref() -> double&;
+    const double &getY_ref() const;
     [[nodiscard("point::get")]] auto get() const -> Point;
 
     void print() const;
@@ -43,6 +47,8 @@ public:
 private:
     double x_ = 0.0;
     double y_ = 0.0;
+
+
 };
 
 #endif //POINT_HPP
