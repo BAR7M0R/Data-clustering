@@ -33,15 +33,15 @@ data_axi DataTools::convertAxiToAxi(data_axi d, const std::function<void(double 
     std::ranges::for_each(d, operation);
     return d;
 }
-data_axi DataTools::calculateError(const data_axi &first,const data_axi &second) {
-    if (first.size() != second.size())
-    {
-        throw std::invalid_argument("different sizes of axies");
-    }
-    data_axi r;
-    r.reserve(first.size());
-    for (auto& i : r) {
-        i = first[0] - second[0];
-    }
-    return r;
+
+data_axi DataTools::calculateError(const data_axi& first, const data_axi& second)
+{
+    if (first.size() != second.size()) throw std::invalid_argument("DataTools::calculateError -> wrong size");
+    data_axi out;
+    out.reserve(first.size());
+    std::ranges::transform(first
+                           , second
+                           , std::back_inserter(out)
+                           , [](auto a, auto b){return a - b;});
+    return out;
 }
